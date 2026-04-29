@@ -9,6 +9,9 @@ class Task:
         - Assign task to a user
         - Mark task as complete
     """
+    count = 0
+    task_list = []
+
     def __init__(
             self,
             title: str,
@@ -20,6 +23,8 @@ class Task:
         self.description = description
         self.status = status
         self.user = user
+        Task.count += 1
+        Task.task_list.append(self)
 
     def assign(self, assigned_user: User):
         """Assign this task to a user."""
@@ -45,4 +50,23 @@ class Task:
             f"Task description: {self.description}\n"
             f"Assigned user: {assigned}\n"
             f"Task status: {self.status}\n"
+        )
+
+    @staticmethod
+    def display_all_task():
+        for task in Task.task_list:
+            print(task.display())
+
+    @staticmethod
+    def get_number_of_tasks():
+        return Task.count
+
+    def __str__(self):
+        return self.display()
+
+    def __eq__(self, other):
+        return (
+                self.title == other.title and
+                self.description == other.description and
+                self.user == other.user
         )
