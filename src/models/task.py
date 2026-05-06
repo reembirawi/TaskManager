@@ -1,6 +1,6 @@
-from user import User
+from models.user import User
 from utils.decorators import log_call
-
+from models.task_status import TaskStatus
 
 class Task:
     """
@@ -17,7 +17,7 @@ class Task:
             self,
             title: str,
             description: str,
-            status: str = "open",
+            status: TaskStatus = TaskStatus.OPEN,
             user: User = None
     ):
         self.title = title
@@ -31,14 +31,14 @@ class Task:
     def assign(self, assigned_user: User):
         """Assign this task to a user."""
         self.user = assigned_user
-        self.status = "in-progress"
+        self.status = TaskStatus.IN_PROGRESS
         assigned_user.add_task(self)
         return f'{self.title} task assigned to {self.user.fullname()}'
 
     @log_call
     def complete(self):
         """Mark the task as completed."""
-        self.status = "done"
+        self.status = TaskStatus.DONE
         return f"{self.title} task is completed"
 
     @log_call
@@ -55,6 +55,24 @@ class Task:
             f"Assigned user: {assigned}\n"
             f"Task status: {self.status}\n"
         )
+
+    @staticmethod
+    @log_call
+    def filter_tasks(tasks: list, **kwargs):
+        filtered_tasks = []
+        for task in tasks:
+            take_task = True
+            for key, value in kwargs.items():
+                if isinstance(value, User):
+                    if not value.__eq__(task.user):
+                        take_task = False
+                elif getattr(task, key) != value:
+                    take_task = False
+                    break
+
+            if take_task:
+                filtered_tasks.append(task)
+        return filtered_tasks
 
     @staticmethod
     @log_call

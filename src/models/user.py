@@ -13,3 +13,9 @@ class User:
     def display_tasks(self):
         for task in self.tasks:
             print(task)
+
+    def __eq__(self, other):
+        return (
+                self.first == other.first and
+                self.last == other.last
+        )
