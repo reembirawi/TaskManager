@@ -1,5 +1,8 @@
 from task import Task
 from user import User
+from utils.logger import setup_logger
+
+setup_logger()
 
 if __name__ == "__main__":
     user1 = User("Reem", "Birawi")
@@ -23,5 +26,4 @@ if __name__ == "__main__":
 
     print(f'Number of tasks : {task1.get_number_of_tasks()}')
 
-    print("\nAll available tasks:")
     task1.display_all_task()

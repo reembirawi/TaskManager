@@ -1,4 +1,5 @@
 from user import User
+from utils.decorators import log_call
 
 
 class Task:
@@ -26,6 +27,7 @@ class Task:
         Task.count += 1
         Task.task_list.append(self)
 
+    @log_call
     def assign(self, assigned_user: User):
         """Assign this task to a user."""
         self.user = assigned_user
@@ -33,11 +35,13 @@ class Task:
         assigned_user.add_task(self)
         return f'{self.title} task assigned to {self.user.fullname()}'
 
+    @log_call
     def complete(self):
         """Mark the task as completed."""
         self.status = "done"
         return f"{self.title} task is completed"
 
+    @log_call
     def display(self):
         """Display task information."""
         if self.user is None:
@@ -53,11 +57,14 @@ class Task:
         )
 
     @staticmethod
+    @log_call
     def display_all_task():
-        for task in Task.task_list:
-            print(task.display())
+        tasks = Task.task_list
+        tasks_information = [f'{task.display()}' for task in tasks]
+        print('\n'.join(tasks_information))
 
     @staticmethod
+    @log_call
     def get_number_of_tasks():
         return Task.count
 
