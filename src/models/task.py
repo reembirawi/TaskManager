@@ -2,6 +2,7 @@ from models.user import User
 from utils.decorators import log_call
 from models.task_status import TaskStatus
 
+
 class Task:
     """
         Represents a task in a task management system.

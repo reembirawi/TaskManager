@@ -3,7 +3,8 @@ from time import time
 
 class Timer:
     """
-        Context manager for measuring execution time of a function or code block.
+        Context manager for measuring execution
+        time of a function or code block.
     """
     def __init__(self, func):
         self.func = func

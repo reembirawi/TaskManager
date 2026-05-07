@@ -42,8 +42,11 @@ if __name__ == "__main__":
 
     print('****************************************************************')
 
-    filtered_task_list = task2.filter_tasks(Task.task_list, user=user1, status=TaskStatus.DONE)
+    filtered_task_list = task2.filter_tasks(
+        Task.task_list,
+        user=user1,
+        status=TaskStatus.DONE
+    )
     print("number of tasks in filtered task list:", len(filtered_task_list))
     for task in filtered_task_list:
         print(task.display())
-
