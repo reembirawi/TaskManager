@@ -53,7 +53,7 @@ class Task:
             f"Task title: {self.title}\n"
             f"Task description: {self.description}\n"
             f"Assigned user: {assigned}\n"
-            f"Task status: {self.status}\n"
+            f"Task status: {self.status.value}\n"
         )
 
     @staticmethod
